@@ -3,6 +3,7 @@
 'label' => null,
 'options' => [],
 'value' => null,
+'placeholder' => 'Select...',
 ])
 
 <div>
@@ -18,7 +19,10 @@
         {{ $attributes->merge([
             'class' => 'w-full rounded-lg border border-slate-300 px-4 py-2 focus:ring-2 focus:ring-slate-900 focus:outline-none'
         ]) }}>
-        <option value="">Select...</option>
+        {{-- Default Placeholder --}}
+        <option value="">
+            {{ $placeholder }}
+        </option>
 
         @foreach($options as $optionValue => $optionLabel)
         <option
@@ -29,7 +33,5 @@
         @endforeach
     </select>
 
-    @error($name)
-    <p class="text-sm text-red-500 mt-2">{{ $message }}</p>
-    @enderror
+    <x-form.error :name="$name" />
 </div>

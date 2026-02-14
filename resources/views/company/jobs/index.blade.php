@@ -52,7 +52,13 @@
                 {{ $job->location ?? '-' }}
             </td>
 
+
             <td class="px-4 py-3 text-right space-x-2">
+                <a href="{{ route('company.jobs.show', $job) }}"
+                    class="text-sky-600 hover:underline">
+                    View
+                </a>
+
                 <a href="{{ route('company.jobs.edit', $job) }}"
                     class="text-sky-600 hover:underline">
                     Edit

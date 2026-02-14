@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Enums\UserRole;
+use App\Enums\User\UserRole;
 
 class User extends Authenticatable
 {
@@ -51,6 +51,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function ownsJob(Job $job): bool
+    {
+        return $this->company_id === $job->company_id;
     }
 
     public function company(): BelongsTo

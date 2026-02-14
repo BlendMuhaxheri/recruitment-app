@@ -3,6 +3,7 @@
 'name',
 'type' => 'text',
 'placeholder' => '',
+'value' => null,
 ])
 
 <div>
@@ -16,7 +17,7 @@
         type="{{ $type }}"
         name="{{ $name }}"
         id="{{ $name }}"
-        value="{{ old($name) }}"
+        value="{{ old($name, $value) }}"
         placeholder="{{ $placeholder }}"
         {{ $attributes->merge([
             'class' =>
