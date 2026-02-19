@@ -3,7 +3,9 @@
 namespace App\Services\Public\Applications;
 
 use App\Enums\Application\ApplicationStage;
+use App\Events\ApplicationSubmitted;
 use App\Exceptions\AlreadyAppliedException;
+use App\Models\Application;
 use App\Models\Candidate;
 use App\Models\Company;
 use App\Models\Job;
@@ -17,7 +19,8 @@ class SubmitApplication
             $resumePath = $this->upload($data);
             $candidate  = $this->createCandidate($company, $data);
             $this->ensureNotAlreadyApplied($candidate, $job);
-            $this->createApplication($candidate, $data, $resumePath, $job);
+            $application = $this->createApplication($candidate, $data, $resumePath, $job);
+            $this->dispatchApplicationSubmittedEvent($application);
         });
     }
 
@@ -59,8 +62,8 @@ class SubmitApplication
         array $data,
         ?string $resumePath,
         Job $job
-    ): void {
-        $candidate->applications()->create([
+    ): Application {
+        return $candidate->applications()->create([
             'candidate_id'      => $candidate->id,
             'resume_path'       => $resumePath,
             'cover_letter'      => $data['cover_letter'] ?? null,
@@ -68,5 +71,10 @@ class SubmitApplication
             'application_stage' => ApplicationStage::Applied
 
         ]);
+    }
+
+    private function dispatchApplicationSubmittedEvent($application): void
+    {
+        event(new ApplicationSubmitted($application));
     }
 }
