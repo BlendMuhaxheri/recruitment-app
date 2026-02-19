@@ -13,6 +13,12 @@
     </x-form.label>
     @endif
 
+    @if(empty($value))
+    <option value="" disabled selected>
+        {{ $placeholder }}
+    </option>
+    @endif
+
     <select
         name="{{ $name }}"
         id="{{ $name }}"

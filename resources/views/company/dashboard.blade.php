@@ -7,7 +7,6 @@
 
 @section('content')
 
-{{-- Stats Section --}}
 <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
 
     <x-card.stat-card title="Total Jobs" value="12" extra="+2 this month" />
@@ -17,14 +16,11 @@
 
 </section>
 
-{{-- Recent Applications Table --}}
 <div class="mt-8">
-
     <x-table.card
         title="Recent Applications"
         subtitle="Latest candidates in your pipeline">
 
-        {{-- Table Header --}}
         <thead class="bg-slate-50 text-slate-600">
             <tr>
                 <th class="px-4 py-3 text-left">Candidate</th>
@@ -35,39 +31,65 @@
             </tr>
         </thead>
 
-        {{-- Table Body --}}
         <tbody class="divide-y divide-slate-200">
+
+            @forelse($applications as $application)
 
             <tr>
                 <td class="px-4 py-3">
-                    <div class="font-semibold">Sarah Johnson</div>
+                    <div class="font-semibold">
+                        {{ $application->candidate->name }}
+                    </div>
+
                     <div class="text-xs text-slate-500">
-                        sarah@email.com
+                        {{ $application->candidate->email }}
                     </div>
                 </td>
 
                 <td class="px-4 py-3">
-                    Backend Engineer
+                    {{ $application->job->title }}
                 </td>
 
                 <td class="px-4 py-3">
-                    <span class="px-2 py-1 text-xs rounded-full bg-sky-100 text-sky-700">
-                        Screening
+                    @php
+                    $stageColors = [
+                    'applied' => 'bg-gray-100 text-gray-700',
+                    'screening' => 'bg-sky-100 text-sky-700',
+                    'interview' => 'bg-purple-100 text-purple-700',
+                    'accepted' => 'bg-green-100 text-green-700',
+                    'rejected' => 'bg-red-100 text-red-700',
+                    ];
+                    @endphp
+
+                    <span class="px-2 py-1 text-xs rounded-full {{ $stageColors[$application->application_stage] ?? 'bg-gray-100 text-gray-700' }}">
+                        {{ ucfirst($application->application_stage) }}
                     </span>
                 </td>
 
                 <td class="px-4 py-3 text-slate-500">
-                    2 hours ago
+                    {{ $application->created_at->diffForHumans() }}
                 </td>
 
                 <td class="px-4 py-3 text-right">
-                    <x-form.button>
-                        Review
-                    </x-form.button>
+                    <a>
+                        <x-form.button>
+                            Review
+                        </x-form.button>
+                    </a>
                 </td>
+
             </tr>
 
+            @empty
+            <tr>
+                <td colspan="5" class="px-4 py-6 text-center text-slate-500">
+                    No recent applications yet.
+                </td>
+            </tr>
+            @endforelse
+
         </tbody>
+
 
     </x-table.card>
 

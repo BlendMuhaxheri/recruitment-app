@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Admin\AdminMiddleware;
 use App\Http\Middleware\Company\CompanyMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,7 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'role' => CompanyMiddleware::class,
+            'role'    => AdminMiddleware::class,
+            'company' => CompanyMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

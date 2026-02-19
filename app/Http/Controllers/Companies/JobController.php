@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Company;
+namespace App\Http\Controllers\Companies;
 
 use App\Enums\Job\JobStatus;
 use App\Enums\Job\JobType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Job\StoreJobRequest;
-use App\Http\Requests\Job\UpdateJobRequest;
+use App\Http\Requests\Jobs\StoreJobRequest;
+use App\Http\Requests\Jobs\UpdateJobRequest;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class JobController extends Controller
 {
     public function index(Request $request)
     {
-        $jobs = Job::where('company_id', $request->user()->company_id)
+        $jobs = Job::forCompany($request->user()->company_id)
             ->latest()
             ->get();
 
@@ -39,6 +40,7 @@ class JobController extends Controller
 
         Job::create([
             ...$request->validatedAttributes(),
+            'slug'       => Str::slug($request->title),
             'company_id' => $request->user()->company_id,
         ]);
 
@@ -78,7 +80,7 @@ class JobController extends Controller
     {
         $this->authorize('delete', $job);
 
-        $job->delete(); // Soft delete
+        $job->delete();
 
         return redirect()->route('company.jobs.index');
     }

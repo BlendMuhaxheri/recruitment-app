@@ -12,7 +12,7 @@
         </div>
 
         <x-form.card>
-            <form method="POST" action="/register" class="space-y-5">
+            <form method="POST" action="{{route('register')}}" class="space-y-5">
                 @csrf
 
                 <x-form.input
@@ -43,7 +43,7 @@
                     label="Confirm Password"
                     placeholder="••••••••" />
 
-                <x-form.button>
+                <x-form.button type="submit">
                     Create Account
                 </x-form.button>
 

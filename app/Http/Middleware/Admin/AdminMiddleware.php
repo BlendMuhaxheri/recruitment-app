@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Middleware\Company;
+namespace App\Http\Middleware\Admin;
 
+use App\Enums\User\UserRole;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CompanyMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,10 +16,8 @@ class CompanyMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = auth()->user();
-
-        if (!$user || !$user->company_id) {
-            abort(403, 'No company workspace.');
+        if (auth()->user()->role !== UserRole::ADMIN) {
+            abort(403);
         }
 
         return $next($request);

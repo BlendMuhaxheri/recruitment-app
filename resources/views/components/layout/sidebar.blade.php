@@ -1,7 +1,5 @@
 <aside class="hidden lg:flex lg:w-72 lg:flex-col lg:fixed lg:inset-y-0">
     <div class="flex flex-col h-full border-r border-slate-200 bg-white">
-
-        {{-- Logo --}}
         <div class="px-6 py-6 flex items-center gap-3">
             <div class="h-10 w-10 rounded-2xl bg-sky-600 text-white flex items-center justify-center font-bold">
                 C
@@ -12,10 +10,7 @@
             </div>
         </div>
 
-        {{-- Navigation --}}
         <nav class="px-3 space-y-1">
-
-            {{-- Dashboard --}}
             <a href="{{ route('company.dashboard') }}"
                 class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold
                {{ request()->routeIs('company.dashboard')
@@ -23,8 +18,6 @@
                     : 'text-slate-700 hover:bg-slate-50' }}">
                 Dashboard
             </a>
-
-            {{-- Jobs --}}
             <a href="{{ route('company.jobs.index') }}"
                 class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold
                {{ request()->routeIs('company.jobs.*')
@@ -32,28 +25,30 @@
                     : 'text-slate-700 hover:bg-slate-50' }}">
                 Jobs
             </a>
-
-            {{-- Candidates --}}
-            <a href="#"
-                class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold text-slate-700 hover:bg-slate-50">
+            <a href="{{ route('company.candidates.index') }}"
+                class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold
+               {{ request()->routeIs('company.candidates.*')
+                    ? 'bg-sky-50 text-sky-700'
+                    : 'text-slate-700 hover:bg-slate-50' }}">
                 Candidates
             </a>
 
-            {{-- Interviews --}}
             <a href="#"
-                class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold text-slate-700 hover:bg-slate-50">
+                class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold
+               {{ request()->routeIs('company.interviews.*')
+                    ? 'bg-sky-50 text-sky-700'
+                    : 'text-slate-700 hover:bg-slate-50' }}">
                 Interviews
             </a>
-
-            {{-- Settings --}}
             <a href="#"
-                class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold text-slate-700 hover:bg-slate-50">
+                class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold
+               {{ request()->routeIs('company.settings.*')
+                    ? 'bg-sky-50 text-sky-700'
+                    : 'text-slate-700 hover:bg-slate-50' }}">
                 Settings
             </a>
 
         </nav>
-
-        {{-- Footer --}}
         <div class="mt-auto px-6 py-6 border-t border-slate-200">
             <p class="text-sm font-semibold">Acme Hiring</p>
             <p class="text-xs text-slate-500">hr@acme.com</p>

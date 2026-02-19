@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Job;
+namespace App\Http\Requests\Jobs;
 
 use App\Enums\Job\JobStatus;
 use App\Enums\Job\JobType;
 use Illuminate\Validation\Rules\Enum;
 
-class StoreJobRequest extends BaseJobRequest
+class UpdateJobRequest extends BaseJobRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class StoreJobRequest extends BaseJobRequest
     public function rules(): array
     {
         return [
-            'type'        => ['required', new Enum(JobType::class)],
-            'title'       => ['required', 'string', 'max:48'],
-            'status'      => ['required', new Enum(JobStatus::class)],
-            'location'    => ['nullable', 'string', 'max:48'],
-            'departament' => ['nullable', 'string', 'max:48'],
+            'type'        => ['sometimes', new Enum(JobType::class)],
+            'title'       => ['sometimes', 'string', 'max:48'],
+            'status'      => ['sometimes', new Enum(JobStatus::class)],
+            'location'    => ['sometimes', 'nullable', 'string', 'max:48'],
+            'departament' => ['sometimes', 'nullable', 'string', 'max:48'],
         ];
     }
 }

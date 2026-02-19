@@ -1,6 +1,8 @@
 <?php
 
 use App\Enums\Job;
+use App\Enums\Job\JobStatus;
+use App\Enums\Job\JobType;
 use App\Models\Company;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,10 +21,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('departament')->nullable();
             $table->string('location')->nullable();
-            $table->enum('status', array_column(Job::cases(), 'value'))
-                ->default(Job::OPEN->value);
-            $table->enum('type', array_column(Job::cases(), 'value'))
-                ->default(Job::FULLTIME->value);
+            $table->enum('status', array_column(JobStatus::cases(), 'value'))
+                ->default(JobStatus::OPEN->value);
+            $table->enum('type', array_column(JobType::cases(), 'value'))
+                ->default(JobType::FULLTIME->value);
             $table->timestamps();
         });
     }
