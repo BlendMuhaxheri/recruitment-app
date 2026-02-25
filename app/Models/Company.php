@@ -31,4 +31,9 @@ class Company extends Model
     {
         return $this->hasMany(Candidate::class);
     }
+
+    public function interviews(): HasMany
+    {
+        return $this->hasMany(Interview::class);
+    }
 }

@@ -27,4 +27,10 @@ class CandidateController extends Controller
             'applications' => $applications
         ]);
     }
+
+    public function show(Candidate $candidate)
+    {
+        $candidate->load('applications.job');
+        return view('company.candidates.show', ['candidate' => $candidate]);
+    }
 }

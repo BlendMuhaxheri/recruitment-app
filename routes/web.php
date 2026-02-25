@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Public\Applications\ApplicationController;
 use App\Http\Controllers\Public\Jobs\JobController as PublicJobController;
 use App\Http\Controllers\Applications\ApplicationController as CompanyApplicationController;
+use App\Http\Controllers\Companies\InterviewController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -37,6 +38,12 @@ Route::middleware(['auth', 'company'])
 
         Route::resource('candidates', CandidateController::class)
             ->middleware('role:admin,recruiter');
+
+        Route::resource('applications.interviews', InterviewController::class)
+            ->middleware('role:admin,recruiter');
+
+        Route::get('interviews', [InterviewController::class, 'index'])
+            ->name('interviews.index');
 
         Route::patch(
             '/applications/{application}/stage',

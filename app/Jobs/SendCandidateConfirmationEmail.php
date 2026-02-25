@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\CandidateApplicationReceivedMail;
+use App\Models\ActivityLog;
 use App\Models\Application;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -26,7 +27,15 @@ class SendCandidateConfirmationEmail implements ShouldQueue
      */
     public function handle(): void
     {
+        $this->application->load(['candidate', 'job']);
+
         Mail::to($this->application->candidate->email)
             ->send(new CandidateApplicationReceivedMail($this->application));
+
+        ActivityLog::create([
+            'company_id'   => $this->application->job->company_id,
+            'candidate_id' => $this->application->candidate_id,
+            'action'       => "Application confirmation email sent",
+        ]);
     }
 }

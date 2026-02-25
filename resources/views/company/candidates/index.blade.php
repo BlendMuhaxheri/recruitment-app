@@ -65,7 +65,7 @@
             </td>
             <td class="px-4 py-3 text-right space-x-2">
 
-                <a
+                <a href="{{route('company.candidates.show', $application->candidate)}}"
                     class="text-sky-600 hover:underline">
                     View Candidate
                 </a>

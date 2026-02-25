@@ -33,7 +33,7 @@
                 Candidates
             </a>
 
-            <a href="#"
+            <a href="{{route('company.interviews.index')}}"
                 class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold
                {{ request()->routeIs('company.interviews.*')
                     ? 'bg-sky-50 text-sky-700'
