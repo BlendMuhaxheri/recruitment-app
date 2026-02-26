@@ -86,19 +86,18 @@ use App\Enums\Application\ApplicationStage;
                                     onchange="if(this.value) this.form.submit()" />
                             </form>
 
-                            @if(!in_array(
-                            $application->application_stage,
-                            [
+                            @if(
+                            !in_array($application->application_stage, [
                             ApplicationStage::Hired->value,
-                            ApplicationStage::Rejected->value
-                            ]
-                            ))
+                            ApplicationStage::Rejected->value,
+                            ])
+                            && $application->interviews_count == 0
+                            )
                             <a href="{{ route('company.applications.interviews.create', $application) }}"
                                 class="text-sm px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50">
                                 Schedule Interview
                             </a>
                             @endif
-
                         </div>
                     </div>
 

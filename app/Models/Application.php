@@ -25,6 +25,12 @@ class Application extends Model
         return $this->job->company_id === $user->id;
     }
 
+
+    public function hasInterview(): bool
+    {
+        return $this->interviews()->exists();
+    }
+
     public function job(): BelongsTo
     {
         return $this->belongsTo(Job::class);

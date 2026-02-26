@@ -19,6 +19,10 @@ class Interview extends Model
         'location'
     ];
 
+    protected $casts = [
+        'scheduled_at' => 'datetime',
+    ];
+
     public function application(): BelongsTo
     {
         return $this->belongsTo(Application::class);

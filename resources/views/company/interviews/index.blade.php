@@ -6,7 +6,7 @@
     title="Interviews"
     subtitle="Manage and track all scheduled interviews">
 
-    <a href="{{ route('company.interviews.create') }}"
+    <a
         class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
         + Schedule Interview
     </a>
@@ -113,18 +113,18 @@
 
             <td class="px-4 py-3 text-right space-x-2">
 
-                <a href="{{ route('company.interviews.show', $interview) }}"
+                <a
                     class="text-sky-600 hover:underline">
                     View
                 </a>
 
-                <a href="{{ route('company.interviews.edit', $interview) }}"
+                <a
                     class="text-slate-600 hover:underline">
                     Reschedule
                 </a>
 
                 <form method="POST"
-                    action="{{ route('company.interviews.destroy', $interview) }}"
+
                     class="inline">
                     @csrf
                     @method('DELETE')
